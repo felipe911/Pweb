@@ -1,0 +1,192 @@
+
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['pages.cadastroVenda.title']}" />
+	</ui:define>
+
+	<ui:define name="principal">
+
+		<h1>
+			<p:outputLabel value="#{msg['pages.cadastroVenda.menu']}" />
+		</h1>
+		<h:form id="formVendas">
+
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="#{msg['pages.cadastroVenda.vendedor.nome']}" />
+				<p:selectOneMenu value="#{vendaManagedBean.vendedor}"
+					converter="converterVendedor">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.cadastroVenda.vendedor.msg']}" />
+					<f:selectItems value="#{vendaManagedBean.vendedores}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.cadastroVenda.cliente.nome']}" />
+				<p:selectOneMenu value="#{vendaManagedBean.cliente}"
+					converter="converterCliente">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.cadastroVenda.cliente.msg']}" />
+					<f:selectItems value="#{vendaManagedBean.clientes}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.cadastroVenda.produto.descricao']}" />
+				<p:selectOneMenu value="#{vendaManagedBean.produto}"
+					converter="converterProduto">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.cadastroVenda.produto.msg']}" />
+					<f:selectItems value="#{vendaManagedBean.produtos}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.descricao}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.cadastroVenda.qtd']}" />
+				<p:inputText value="#{vendaManagedBean.venda.qtd}" />
+				
+				<p:outputLabel value="#{msg['pages.cadastroVenda.valorTotal']}" />
+				<p:outputLabel value="#{vendaManagedBean.venda.valorTotal}" />
+				
+				
+
+
+			</p:panelGrid>
+			<br/>
+			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}"
+				action="#{vendaManagedBean.salvar}"
+				update=":formVendas, :formTableVendas" />
+		</h:form>
+
+		<h3>
+			<p:outputLabel value="#{msg['pages.cadastroVenda.tableTitle']}" />
+		</h3>
+
+		<h:form id="formTableVendas">
+
+			<p:dataTable value="#{vendaManagedBean.vendas}" var="vend"
+				editable="true" id="tableVendas">
+
+				<p:ajax event="rowEdit" listener="#{vendaManagedBean.onRowEdit}"
+					update="tableVendas" />
+
+				<p:column headerText="#{msg['pages.cadastroVenda.codigo']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.codigo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="codigo" value="#{vend.codigo}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				
+				<p:column
+					headerText="#{msg['pages.cadastroVenda.vendedor.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.vendedor.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{vend.vendedor}"
+								converter="converterVendedor" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.cadastroVenda.vendedor.msg']}" />
+								<f:selectItems value="#{vendaManagedBean.vendedores}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column
+					headerText="#{msg['pages.cadastroVenda.cliente.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.cliente.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{vend.cliente}"
+								converter="converterCliente" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.cadastroVenda.cliente.msg']}" />
+								<f:selectItems value="#{vendaManagedBean.clientes}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column
+					headerText="#{msg['pages.cadastroVenda.produto.descricao']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.produto.descricao}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{vend.produto}"
+								converter="converterProduto" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.cadastroVenda.produto.msg']}" />
+								<f:selectItems value="#{vendaManagedBean.produtos}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.descricao}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="#{msg['pages.cadastroVenda.qtd']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.qtd}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="qtd" value="#{vend.qtd}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+
+				<p:column headerText="#{msg['pages.cadastroVenda.valorTotal']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{vend.valorTotal}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="valorTotal" value="#{vend.valorTotal}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:70px"
+					headerText="#{msg['pages.commus.form.opcoes']}">
+
+
+
+					<p:rowEditor />
+
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{vendaManagedBean.remove(vend)}"
+						update=":formTableVendas" />
+
+
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
