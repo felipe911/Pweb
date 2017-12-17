@@ -10,7 +10,7 @@ import javax.faces.model.DataModel;
 import org.primefaces.event.RowEditEvent;
 import sistema.beans.datamodel.ClienteDataModel;
 import sistema.modelos.Cliente;
-import sistema.modelos.Venda;
+import sistema.modelos.Produto;
 import sistema.service.ClienteService;
 
 @ManagedBean
@@ -52,14 +52,26 @@ public class ClienteManagedBean {
 	}
 
 	public void remove(Cliente cliente) {
-		clientService.remover(cliente);
-		clientes.remove(cliente);
+		if (clientService.pesquisarProdutosCliente(cliente).size() > 0) {
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Não é possível remover cliente",
+					"Cliente possui produtos!"));
+		} else {
+			clientService.remover(cliente);
+			clientes.remove(cliente);
+		}
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
+	public List<Produto> getProdutosCliente() {
+		if (clienteSelecionado != null) {
+			return clientService.pesquisarProdutosCliente(clienteSelecionado);
+		} else
+			return null;
+	}
 
 	public void onRowEdit(RowEditEvent event) {
 

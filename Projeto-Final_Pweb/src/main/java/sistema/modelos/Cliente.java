@@ -27,19 +27,19 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy="cliente")
 	private List<Produto> produtos = new ArrayList<Produto>();
 	
-	private List<Venda> vendas = new ArrayList<Venda>();
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
-	public List<Venda> getVendas() {
-		return vendas;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
-	public void addVenda(Venda venda)
+	public void addPedido(Pedido pedido)
 	{
-		vendas.add(venda);
+		pedidos.add(pedido);
 		
 	}
 	

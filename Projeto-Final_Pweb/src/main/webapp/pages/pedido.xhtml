@@ -1,0 +1,192 @@
+
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['pages.pedido.title']}" />
+	</ui:define>
+
+	<ui:define name="principal">
+
+		<h1>
+			<p:outputLabel value="#{msg['pages.pedido.menu']}" />
+		</h1>
+		<h:form id="formPedidos">
+
+			<p:panelGrid columns="2">
+
+				<p:outputLabel value="#{msg['pages.pedido.vendedor.nome']}" />
+				<p:selectOneMenu value="#{pedidoManagedBean.vendedor}"
+					converter="converterVendedor">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.pedido.vendedor.msg']}" />
+					<f:selectItems value="#{pedidoManagedBean.vendedores}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.pedido.cliente.nome']}" />
+				<p:selectOneMenu value="#{pedidoManagedBean.cliente}"
+					converter="converterCliente">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.pedido.cliente.msg']}" />
+					<f:selectItems value="#{pedidoManagedBean.clientes}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.pedido.produto.descricao']}" />
+				<p:selectOneMenu value="#{pedidoManagedBean.produto}"
+					converter="converterProduto">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.pedido.produto.msg']}" />
+					<f:selectItems value="#{pedidoManagedBean.produtos}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.descricao}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="#{msg['pages.pedido.qtd']}" />
+				<p:inputText value="#{pedidoManagedBean.pedido.qtd}" />
+				
+				<p:outputLabel value="#{msg['pages.pedido.valorTotal']}" />
+				<p:inputText value="#{pedidoManagedBean.pedido.valorTotal}" />
+				
+				
+
+
+			</p:panelGrid>
+			<br/>
+			<p:commandButton value="#{msg['pages.comuns.form.btnSalvar']}"
+				action="#{pedidoManagedBean.salvar}"
+				update=":formPedidos, :formTablePedidos" />
+		</h:form>
+
+		<h3>
+			<p:outputLabel value="#{msg['pages.pedido.tableTitle']}" />
+		</h3>
+
+		<h:form id="formTablePedidos">
+
+			<p:dataTable value="#{pedidoManagedBean.pedidos}" var="ped"
+				editable="true" id="tablePedidos">
+
+				<p:ajax event="rowEdit" listener="#{pedidoManagedBean.onRowEdit}"
+					update="tablePedidos" />
+
+				<p:column headerText="#{msg['pages.pedido.codigo']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.codigo}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="codigo" value="#{ped.codigo}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				
+				<p:column
+					headerText="#{msg['pages.pedido.vendedor.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.vendedor.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ped.vendedor}"
+								converter="converterVendedor" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.pedido.vendedor.msg']}" />
+								<f:selectItems value="#{pedidoManagedBean.vendedores}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column
+					headerText="#{msg['pages.pedido.cliente.nome']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.cliente.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ped.cliente}"
+								converter="converterCliente" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.pedido.cliente.msg']}" />
+								<f:selectItems value="#{pedidoManagedBean.clientes}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.nome}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column
+					headerText="#{msg['pages.pedido.produto.descricao']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.produto.descricao}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu value="#{ped.produto}"
+								converter="converterProduto" style="width:100%">
+								<f:selectItem itemValue=""
+									itemLabel="#{msg['pages.pedido.produto.msg']}" />
+								<f:selectItems value="#{pedidoManagedBean.produtos}"
+									var="aux" itemValue="#{aux}" itemLabel="#{aux.descricao}" />
+							</p:selectOneMenu>
+
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="#{msg['pages.pedido.qtd']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.qtd}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="qtd" value="#{ped.qtd}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+
+				<p:column headerText="#{msg['pages.pedido.valorTotal']}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{ped.valorTotal}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="valorTotal" value="#{ped.valorTotal}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:70px"
+					headerText="#{msg['pages.commus.form.opcoes']}">
+
+
+
+					<p:rowEditor />
+
+					<p:commandLink id="remover" styleClass="ui-icon ui-icon-trash"
+						style="text-align:center"
+						actionListener="#{pedManagedBean.remove(ped)}"
+						update=":formTablePedidos" />
+
+
+
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

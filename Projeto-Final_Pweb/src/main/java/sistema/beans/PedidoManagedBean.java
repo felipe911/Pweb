@@ -11,42 +11,42 @@ import org.primefaces.event.RowEditEvent;
 import sistema.modelos.Vendedor;
 import sistema.modelos.Cliente;
 import sistema.modelos.Produto;
-import sistema.modelos.Venda;
+import sistema.modelos.Pedido;
 import sistema.service.VendedorService;
 import sistema.service.ClienteService;
 import sistema.service.ProdutoService;
-import sistema.service.VendaService;
+import sistema.service.PedidoService;
 
-@ManagedBean(name = "vendaManagedBean")
+@ManagedBean(name = "pedidoManagedBean")
 @ViewScoped
-public class VendaManagedBean  implements Serializable{
+public class PedidoManagedBean  implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Venda venda = new Venda();
+	private Pedido pedido = new Pedido();
 	private Vendedor vendedor;
 	private Cliente cliente;
 	private Produto produto;
 	private ClienteService clienteService = new ClienteService();
 	private ProdutoService produtoService = new ProdutoService();
-	private VendaService vendaService = new VendaService();
+	private PedidoService pedidoService = new PedidoService();
 	private VendedorService vendedorService = new VendedorService();
-	private List<Venda> vendas;
+	private List<Pedido> pedidos;
 
 	public void salvar() {
-		vendedor.addVenda(venda);
-		venda.setVendedor(vendedor);
-		venda.setCliente(cliente);
-		venda.setProduto(produto);
+		vendedor.addPedido(pedido);
+		pedido.setVendedor(vendedor);
+		pedido.setCliente(cliente);
+		pedido.setProduto(produto);
 
-		venda = vendaService.salvar(venda);
+		pedido = pedidoService.salvar(pedido);
 
-		if (vendas != null)
-			vendas.add(venda);
+		if (pedidos != null)
+			pedidos.add(pedido);
 
-		venda = new Venda();
+		pedido = new Pedido();
 		vendedor = null;
 
 	}
@@ -91,30 +91,30 @@ public class VendaManagedBean  implements Serializable{
 		this.vendedor = vendedor;
 	}
 
-	public void remove(Venda venda) {
-		vendaService.remover(venda);
-		vendas.remove(venda);
+	public void remove(Pedido pedido) {
+		pedidoService.remover(pedido);
+		pedidos.remove(pedido);
 	}
 
-	public Venda getVenda() {
-		return venda;
+	public Pedido getPedido() {
+		return pedido;
 	}
 
-	public void setVenda(Venda venda) {
-		this.venda = venda;
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
-	public List<Venda> getVendas() {
-		if (vendas == null)
-			vendas = vendaService.getVendas();
+	public List<Pedido> getPedidos() {
+		if (pedidos == null)
+			pedidos = pedidoService.getPedidos();
 
-		return vendas;
+		return pedidos;
 	}
 
 	public void onRowEdit(RowEditEvent event) {
 
-		Venda p = ((Venda) event.getObject());
-		vendaService.alterar(p);
+		Pedido p = ((Pedido) event.getObject());
+		pedidoService.alterar(p);
 	}
 
 }

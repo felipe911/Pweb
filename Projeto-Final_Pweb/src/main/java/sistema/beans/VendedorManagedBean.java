@@ -10,7 +10,7 @@ import javax.faces.model.DataModel;
 import org.primefaces.event.RowEditEvent;
 import sistema.beans.datamodel.VendedorDataModel;
 import sistema.modelos.Vendedor;
-import sistema.modelos.Venda;
+import sistema.modelos.Pedido;
 import sistema.service.VendedorService;
 
 @ManagedBean
@@ -66,7 +66,7 @@ public class VendedorManagedBean {
 		this.vendedor = vendedor;
 	}
 
-	public List<Venda> getVendasVendedor() {
+	public List<Pedido> getVendasVendedor() {
 		if (vendedorSelecionado != null) {
 			return servico.pesquisarVendasVendedor(vendedorSelecionado);
 		} else

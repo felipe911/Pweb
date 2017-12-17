@@ -75,14 +75,5 @@ public abstract class DAOImpl <T, I extends Serializable> {
 		
 		em = null;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

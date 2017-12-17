@@ -22,10 +22,14 @@ public class ProdutoManagedBean  implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Produto produto = new Produto();
+	//private Cliente cliente;
 	private ProdutoService prodService = new ProdutoService();
+	//private ClienteService clientService = new ClienteService();
 	private List<Produto> produtos;
 
 	public void salvar() {
+		//cliente.addProduto(produto);
+		//produto.setCliente(cliente);
 
 		produto = prodService.salvar(produto);
 
@@ -33,15 +37,31 @@ public class ProdutoManagedBean  implements Serializable{
 			produtos.add(produto);
 
 		produto = new Produto();
+		//cliente = null;
 
 	}
 
+	/*public List<Cliente> getClientes() {
+		return clientService.getClientes();
+
+	}
+	*/
+	
+	/* public Cliente getCliente() {
+		return cliente;
+	}
+	*/
+	
 	public void remove(Produto produto) {
 		prodService.remover(produto);
 		produtos.remove(produto);
 	}
 
-
+	
+	/* public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	*/
 	public Produto getProduto() {
 		return produto;
 	}

@@ -25,7 +25,7 @@ public class Vendedor implements Serializable{
 	private int telefone;
 	
 	@OneToMany(mappedBy="vendedor")
-	private List<Venda> vendas = new ArrayList<Venda>();
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 	
 	
 	public Vendedor(long codigo, String nome) {
@@ -67,17 +67,17 @@ public class Vendedor implements Serializable{
 		this.telefone = telefone;
 	}
 
-	public List<Venda> getVendas() {
-		return vendas;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setVendas(List<Venda> vendas) {
-		this.vendas = vendas;
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
-	public void addVenda(Venda venda)
+	public void addPedido(Pedido pedido)
 	{
-		vendas.add(venda);
+		pedidos.add(pedido);
 		
 	}
 	
@@ -90,7 +90,7 @@ public class Vendedor implements Serializable{
 		result = prime * result + comissao;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + telefone;
-		result = prime * result + ((vendas == null) ? 0 : vendas.hashCode());
+		result = prime * result + ((pedidos == null) ? 0 : pedidos.hashCode());
 		return result;
 	}
 
@@ -114,10 +114,10 @@ public class Vendedor implements Serializable{
 			return false;
 		if (telefone != other.telefone)
 			return false;
-		if (vendas == null) {
-			if (other.vendas != null)
+		if (pedidos == null) {
+			if (other.pedidos != null)
 				return false;
-		} else if (!vendas.equals(other.vendas))
+		} else if (!pedidos.equals(other.pedidos))
 			return false;
 		return true;
 	}

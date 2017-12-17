@@ -7,13 +7,15 @@
 		<class>sistema.modelos.Cliente</class>
 		<class>sistema.modelos.Produto</class>
 		<class>sistema.modelos.Vendedor</class>
-		<class>sistema.modelos.Venda</class>
+		<class>sistema.modelos.Pedido</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:derby://localhost:1527/DBTeste;create=true" />
-			<property name="javax.persistence.jdbc.user" value="app" />
+				value="jdbc:derby://localhost:1527/DB_Felipe_Augusto;create=true" />
+			<property name="javax.persistence.jdbc.user" value="user" />
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" />
-			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="javax.persistence.jdbc.password" value="123"/>
+			
 		</properties>
 	</persistence-unit>
 </persistence>

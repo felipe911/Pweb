@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Venda implements Serializable {
+public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -100,7 +100,7 @@ public class Venda implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Venda other = (Venda) obj;
+		Pedido other = (Pedido) obj;
 		if (cliente == null) {
 			if (other.cliente != null)
 				return false;
@@ -123,5 +123,10 @@ public class Venda implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Pedido [codigo=" + codigo + ", qtd=" + qtd + ", valorTotal=" + valorTotal + "]";
+	}
+	
 
 }

@@ -1,0 +1,105 @@
+
+<ui:composition template="templateMenu.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui2="http://java.sun.com/jsf/facelets"
+	xmlns:tm="http://java.sun.com/jsf/composite/terminal/1_0/components">
+
+	<ui:define name="title">
+		<h:outputText value="#{msg['pages.consultas.title']}" />
+	</ui:define>
+
+	<ui:define name="principal">
+		<h1>
+			<p:outputLabel value="#{msg['pages.consultas.menu']}" />
+		</h1>
+		
+		<br/>
+		
+		<h2>
+			<p:outputLabel value="#{msg['pages.consultas.clientes']}" />
+		</h2>
+		<h:form id="formConsultaClientes">
+			<p:panelGrid columns="3">
+				
+				<p:outputLabel value="#{msg['pages.pedido.cliente.nome']}" />
+				<p:selectOneMenu value="#{pedidoManagedBean.cliente}"
+					converter="converterCliente">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.pedido.cliente.msg']}" />
+					<f:selectItems value="#{pedidoManagedBean.clientes}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				<p:commandButton value="#{msg['pages.comuns.form.btnBuscar']}"/>
+				
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="formTableProdutosCliente">
+	    <h3><p:outputLabel value="#{msg['pages.cadastroCliente.produtosCliente']}: #{clienteManagedBean.clienteSelecionado.nome}" /></h3>
+		<p:dataTable value="#{clienteManagedBean.produtosCliente}" var="prod"	id="tableProdutosCliente">
+
+			<p:column headerText="#{msg['pages.cadastroCliente.produto.codigo']}">
+				<h:outputText value="#{prod.codigo}" />
+			</p:column>
+
+			<p:column headerText="#{msg['pages.cadastroCliente.produto.descricao']}">
+						<p:outputLabel value="#{prod.descricao}" />
+			</p:column>
+			
+			<p:column headerText="#{msg['pages.cadastroCliente.produto.peso']}">
+						<p:outputLabel value="#{prod.peso}" />
+			</p:column>
+
+			<p:column headerText="#{msg['pages.cadastroCliente.produto.valor']}">
+				<h:outputText value="#{prod.valor}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+	
+	
+	<br/>
+		
+		<h2>
+			<p:outputLabel value="#{msg['pages.consultas.vendedores']}" />
+		</h2>
+		<h:form id="formConsultaVendedores">
+			<p:panelGrid columns="3">
+				
+				<p:outputLabel value="#{msg['pages.pedido.vendedor.nome']}" />
+				<p:selectOneMenu value="#{pedidoManagedBean.vendedor}"
+					converter="converterVendedor">
+					<f:selectItem itemValue=""
+						itemLabel="#{msg['pages.pedido.vendedor.msg']}" />
+					<f:selectItems value="#{pedidoManagedBean.vendedores}" var="aux"
+						itemValue="#{aux}" itemLabel="#{aux.nome}" />
+				</p:selectOneMenu>
+				<p:commandButton value="#{msg['pages.comuns.form.btnBuscar']}"/>
+				
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form id="formTableVendasVendedores">
+	    <h3><p:outputLabel value="#{msg['pages.cadastroVendedor.vendasVendedor']}: #{vendedorManagedBean.vendedorSelecionado.nome}" /></h3>
+		<p:dataTable value="#{vendedorManagedBean.vendasVendedor}" var="vend"	id="tableProdutosVendedor">
+
+			<p:column headerText="#{msg['pages.pedido.codigo']}">
+				<h:outputText value="#{vend.codigo}" />
+			</p:column>
+
+			<p:column headerText="#{msg['pages.pedido.cliente.nome']}">
+						<p:outputLabel value="#{vend.nome}" />
+			</p:column>
+			
+			<p:column headerText="#{msg['pages.pedido.valorTotal']}">
+						<p:outputLabel value="#{vend.valorTotal}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+	</ui:define>
+</ui:composition>

@@ -7,7 +7,7 @@ import javax.persistence.Query;
 
 import sistema.dao.VendedorDAO;
 import sistema.modelos.Vendedor;
-import sistema.modelos.Venda;
+import sistema.modelos.Pedido;
 
 public class VendedorService {
 
@@ -47,12 +47,12 @@ public class VendedorService {
 		return vendedor;
 	}
 
-	public List<Venda> pesquisarVendasVendedor(Vendedor vendedor) {
+	public List<Pedido> pesquisarVendasVendedor(Vendedor vendedor) {
 
-		List<Venda> vendas;
+		List<Pedido> pedidos;
 		vendedor = vendedorDAO.getById(Vendedor.class, vendedor.getCodigo());
-		vendas = vendedor.getVendas();
-		return vendas;
+		pedidos = vendedor.getPedidos();
+		return pedidos;
 	}
 
 	

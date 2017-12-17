@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import sistema.dao.ProdutoDAO;
+import sistema.modelos.Cliente;
 import sistema.modelos.Produto;
 
 public class ProdutoService {
@@ -28,6 +29,13 @@ public class ProdutoService {
 	public void alterar(Produto produto) {
 		produtoDAO.save(produto);
 		produtoDAO.closeEntityManager();
+	}
+	
+	public Produto pesquisar(Produto produto) {
+
+		produto = produtoDAO.getById(Produto.class, produto.getCodigo());
+		produtoDAO.closeEntityManager();
+		return produto;
 	}
 
 	public void remover(Produto produto) {
